@@ -2,8 +2,9 @@ const { Post } = require('../models')
 const fields = [ 'title', 'content' ]
 
 function get (req, res, next) {
-  const posts = Post.get()
-  res.json({ posts })
+  const posts = Post.get().then(posts => {
+    res.json({ posts })
+  })
 }
 
 function create (req, res, next) {
@@ -12,8 +13,9 @@ function create (req, res, next) {
 }
 
 function show (req, res, next) {
-  const result = Post.find(req.params.id)
-  res.json({ post: result })
+  const post = Post.find(req.params.id).then(result => {
+    res.json({ post: result })
+  })
 }
 
 function destroy (req, res, next) {
